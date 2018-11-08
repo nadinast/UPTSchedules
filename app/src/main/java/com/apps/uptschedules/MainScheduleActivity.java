@@ -1,5 +1,6 @@
 package com.apps.uptschedules;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainScheduleActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -23,6 +25,7 @@ public class MainScheduleActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+/*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,6 +34,7 @@ public class MainScheduleActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
+*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -82,10 +86,27 @@ public class MainScheduleActivity extends AppCompatActivity
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
+            Context context = getApplicationContext();
+            CharSequence text;
+            int duration = Toast.LENGTH_SHORT;
+            text = "clicked import menu button";
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+
         } else if (id == R.id.nav_gallery) {
-
+            Context context = getApplicationContext();
+            CharSequence text;
+            int duration = Toast.LENGTH_SHORT;
+            text = "clicked gallery menu button";
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
         } else if (id == R.id.nav_slideshow) {
-
+            Context context = getApplicationContext();
+            CharSequence text;
+            int duration = Toast.LENGTH_SHORT;
+            text = "clicked slideshow menu button";
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
