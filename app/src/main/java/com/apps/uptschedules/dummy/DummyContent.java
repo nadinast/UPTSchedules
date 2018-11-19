@@ -16,29 +16,32 @@ public class DummyContent {
     /**
      * An array of sample (dummy) items.
      */
-    public static final List<DummyItem> ITEMS = new ArrayList<DummyItem>();
+    public static final List<SubjectItem> ITEMS = new ArrayList<SubjectItem>();
 
     /**
      * A map of sample (dummy) items, by ID.
      */
-    public static final Map<String, DummyItem> ITEM_MAP = new HashMap<String, DummyItem>();
+    public static final Map<String, SubjectItem> ITEM_MAP = new HashMap<String, SubjectItem>();
 
     private static final int COUNT = 25;
 
     static {
         // Add some sample items.
         for (int i = 1; i <= COUNT; i++) {
-            addItem(createDummyItem(i));
+            addItem(createDummyItem(String.valueOf(i)));
         }
     }
 
-    private static void addItem(DummyItem item) {
+    private static void addItem(SubjectItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.id, item);
     }
 
-    private static DummyItem createDummyItem(int position) {
-        return new DummyItem(String.valueOf(position), "Item " + position, makeDetails(position));
+    private static SubjectItem createDummyItem(String id, String time_interval, String subject_name, String subject_session, String session_room, String session_prof) {
+        return new SubjectItem(id, time_interval,  subject_name,  subject_session,  session_room,  session_prof);
+    }
+    private static SubjectItem createDummyItem(String id) {
+        return new SubjectItem(id);
     }
 
     private static String makeDetails(int position) {
@@ -53,20 +56,29 @@ public class DummyContent {
     /**
      * A dummy item representing a piece of content.
      */
-    public static class DummyItem {
-        public final String id;
-        public final String content;
-        public final String details;
+    public static class SubjectItem {
+        public String id;
+        public String time_interval = null;
+        public String subject_name = null;
+        public String subject_session = null;
+        public String session_room = null;
+        public String session_prof = null;
 
-        public DummyItem(String id, String content, String details) {
+        public SubjectItem(String id, String time_interval, String subject_name, String subject_session, String session_room, String session_prof) {
+            this.time_interval = time_interval;
+            this.subject_name = subject_name;
+            this.subject_session = subject_session;
+            this.session_room = session_room;
+            this.session_prof = session_prof;
+        }
+
+        public SubjectItem(String id) {
             this.id = id;
-            this.content = content;
-            this.details = details;
         }
 
         @Override
         public String toString() {
-            return content;
+            return this.subject_name + "(" + subject_session + ")";
         }
     }
 }

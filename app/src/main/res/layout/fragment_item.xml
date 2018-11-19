@@ -2,19 +2,85 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="vertical">
+
+    <!--<TextView-->
+        <!--android:id="@+id/item_number"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_margin="@dimen/text_margin"-->
+        <!--android:textAppearance="?attr/textAppearanceListItem"-->
+        <!--android:text="69"/>-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/content"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_margin="@dimen/text_margin"-->
+        <!--android:textAppearance="?attr/textAppearanceListItem"-->
+        <!--android:text="item69"/>-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/time_interval"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="12 - 14"
+            android:textSize="24sp" />
+
+        <LinearLayout
+            android:id="@+id/session_organization"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/subject_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="CP"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/subject_session"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="lab"
+                android:textSize="24dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/session_room"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:padding="8dp"
+            android:text="B512"
+            android:textSize="32dp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="2dp"
+        android:background="@android:color/darker_gray" />
 
     <TextView
-        android:id="@+id/item_number"
-        android:layout_width="wrap_content"
+        android:id="@+id/session_prof"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?attr/textAppearanceListItem" />
+        android:text="Prof. A. Iovanovici"
+        android:textSize="24dp" />
 
-    <TextView
-        android:id="@+id/content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?attr/textAppearanceListItem" />
+
 </LinearLayout>
