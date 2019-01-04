@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:layout_editor_absoluteX="8dp"
-    tools:layout_editor_absoluteY="8dp">
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".MainScheduleActivity"
+    tools:showIn="@layout/app_bar_main_schedule"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:paddingRight="10dp"
+    android:paddingLeft="10dp">
 
-    <Button
-        android:id="@+id/button"
+    <ListView
+        android:id="@+id/listSubjects"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="300dp"
-        android:onClick="clicked"
-        android:text="Button1" />
+        android:divider="@android:color/transparent"
+        android:dividerHeight="8dp"/>
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
