@@ -1,7 +1,6 @@
 package com.apps.uptschedules;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -43,8 +42,6 @@ public class MainScheduleActivity extends AppCompatActivity
         setContentView(R.layout.activity_main_schedule);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        final SharedPreferences sharedPref = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
         List<Option> op1 = new ArrayList<>();
         op1.add(new Option("opday", "ophours", "opRoom"));
