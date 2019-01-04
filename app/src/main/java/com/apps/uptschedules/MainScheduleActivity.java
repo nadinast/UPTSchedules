@@ -1,6 +1,7 @@
 package com.apps.uptschedules;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,10 +14,28 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.apps.uptschedules.model.FacultyClass;
+import com.apps.uptschedules.model.Option;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainScheduleActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    // firebase
+    private DatabaseReference databaseReference;
+    private ValueEventListener databaseListener;
+
+    ListView listSubjects;
+    List<FacultyClass> classes = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +43,59 @@ public class MainScheduleActivity extends AppCompatActivity
         setContentView(R.layout.activity_main_schedule);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        final SharedPreferences sharedPref = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+
+        List<Option> op1 = new ArrayList<>();
+        op1.add(new Option("opday", "ophours", "opRoom"));
+        FacultyClass fc1 = new FacultyClass("CP", "day", "hours", "name", "room", "website", op1);
+
+        classes.add(fc1);
+
+        List<Option> op2 = new ArrayList<>();
+        op1.add(new Option("opday", "ophours", "opRoom"));
+        FacultyClass fc2 = new FacultyClass("CP", "day", "hours", "name", "room", "website", op2);
+
+        classes.add(fc2);
+
+        List<Option> op3 = new ArrayList<>();
+        op1.add(new Option("opday", "ophours", "opRoom"));
+        FacultyClass fc3 = new FacultyClass("CP", "day", "hours", "name", "room", "website", op3);
+
+        classes.add(fc3);
+
+        List<Option> op4 = new ArrayList<>();
+        op1.add(new Option("opday", "ophours", "opRoom"));
+        FacultyClass fc4 = new FacultyClass("CP", "day", "hours", "name", "room", "website", op4);
+
+        classes.add(fc4);
+
+        List<Option> op5 = new ArrayList<>();
+        op1.add(new Option("opday", "ophours", "opRoom"));
+        FacultyClass fc5 = new FacultyClass("CP", "day", "hours", "name", "room", "website", op5);
+
+        classes.add(fc5);
+
+        List<Option> op6 = new ArrayList<>();
+        op1.add(new Option("opday", "ophours", "opRoom"));
+        FacultyClass fc6 = new FacultyClass("CP", "day", "hours", "name", "room", "website", op6);
+
+        classes.add(fc6);
+
+        List<Option> op7 = new ArrayList<>();
+        op1.add(new Option("opday", "ophours", "opRoom"));
+        FacultyClass fc7 = new FacultyClass("CP", "day", "hours", "name", "room", "website", op7);
+
+        classes.add(fc7);
+
+
+        listSubjects = (ListView) findViewById(R.id.listSubjects);
+        final MyAdapter adapter = new MyAdapter(this, R.layout.fragment_item, classes);
+        listSubjects.setAdapter(adapter);
+
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = database.getReference();
+
 
 /*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
