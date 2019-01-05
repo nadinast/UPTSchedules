@@ -1,6 +1,5 @@
 package com.apps.uptschedules;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,8 +16,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.apps.uptschedules.model.FacultyClass;
 import com.apps.uptschedules.model.Option;
@@ -29,7 +26,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.apps.uptschedules.model.FacultyClass;
 import com.apps.uptschedules.model.Lab;
 import com.apps.uptschedules.model.User;
 import com.firebase.ui.auth.AuthUI;
@@ -40,12 +36,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class MainScheduleActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -118,7 +110,6 @@ public class MainScheduleActivity extends AppCompatActivity
         DatabaseReference databaseReference = database.getReference();
 
 
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,7 +162,6 @@ public class MainScheduleActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -186,7 +176,8 @@ public class MainScheduleActivity extends AppCompatActivity
         } else if (id == R.id.nav_poll) {
 
         } else if (id == R.id.nav_locations) {
-
+//            Toast.makeText(getApplicationContext(), "I Clicked it", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(this, LocationsActivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -194,21 +185,20 @@ public class MainScheduleActivity extends AppCompatActivity
         return true;
     }
 
-    public void clicked(View view){
+    public void clicked(View view) {
         addUserDBListener();
         addFacultyClassDBListener();
         addLabsDBListener();
     }
 
-    private void addUserDBListener(){
+    private void addUserDBListener() {
         ValueEventListener userListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 try {
                     User user = dataSnapshot.getValue(User.class);
                     Log.i("DBFirebase OK", user.toString());
-                }
-                catch(Exception e){
+                } catch (Exception e) {
                     Log.e("DBFirebase Error", e.toString());
                 }
             }
@@ -221,15 +211,14 @@ public class MainScheduleActivity extends AppCompatActivity
         dbRef.child("users").child("0").addValueEventListener(userListener);
     }
 
-    private void addFacultyClassDBListener(){
+    private void addFacultyClassDBListener() {
         ValueEventListener facultyClassListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 try {
                     FacultyClass facultyClass = dataSnapshot.getValue(FacultyClass.class);
                     Log.i("DBFirebase OK", facultyClass.toString());
-                }
-                catch(Exception e){
+                } catch (Exception e) {
                     Log.e("DBFirebase Error", e.toString());
                 }
             }
@@ -242,15 +231,14 @@ public class MainScheduleActivity extends AppCompatActivity
         dbRef.child("classes").child("0").addValueEventListener(facultyClassListener);
     }
 
-    private void addLabsDBListener(){
+    private void addLabsDBListener() {
         ValueEventListener labsListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 try {
                     Lab lab = dataSnapshot.getValue(Lab.class);
                     Log.i("DBFirebase OK", lab.toString());
-                }
-                catch(Exception e){
+                } catch (Exception e) {
                     Log.e("DBFirebase Error", e.toString());
                 }
             }
@@ -263,7 +251,7 @@ public class MainScheduleActivity extends AppCompatActivity
         dbRef.child("classes").child("0").child("labs").addValueEventListener(labsListener);
     }
 
-    public void createSignInIntent(){
+    public void createSignInIntent() {
         List<AuthUI.IdpConfig> providers = Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build());
         startActivityForResult(
                 AuthUI.getInstance()
@@ -273,13 +261,13 @@ public class MainScheduleActivity extends AppCompatActivity
                 RC_SIGN_IN);
     }
 
-    public void signOut(){
+    public void signOut() {
         AuthUI.getInstance()
                 .signOut(this)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        Log.i("SIGN_OUT","signed out");
+                        Log.i("SIGN_OUT", "signed out");
                     }
                 });
     }
