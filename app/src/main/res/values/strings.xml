@@ -7,4 +7,6 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     <string name="preference_file_key">SharedPreference.txt</string>
+    <string name="welcome_greeting">"Hi there!"</string>
+    <string name="sign_in">"To sign in or register, just click below"</string>
 </resources>

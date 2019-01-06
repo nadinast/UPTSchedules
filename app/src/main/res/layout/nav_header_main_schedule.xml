@@ -20,10 +20,10 @@
         app:srcCompat="@mipmap/ic_upt_schedules_round" />
 
     <TextView
+        android:id="@+id/usernameTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="@string/nav_header_title"
         android:textColor="@color/text_white"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
