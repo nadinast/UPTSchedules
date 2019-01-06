@@ -17,4 +17,5 @@
     <string name="change_password_btn">CHANGE PASSWORD</string>
     <string name="delete_btn">DELETE</string>
     <string name="old_password_msg">Old Password</string>
+    <string name="confirm_btn_msg">Confirm</string>
 </resources>

@@ -19,7 +19,7 @@
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#f3edf9"
+                android:background="@color/list_item_background"
                 android:orientation="vertical">
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -30,6 +30,7 @@
                         android:id="@+id/locationName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textColor="@android:color/black"
                         android:text="ASPC"
                         android:textSize="24sp" />
                     <TextView
