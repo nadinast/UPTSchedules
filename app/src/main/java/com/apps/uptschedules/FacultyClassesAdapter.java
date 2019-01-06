@@ -15,13 +15,13 @@ import com.apps.uptschedules.model.FacultyClass;
 
 import java.util.List;
 
-public class MyAdapter extends ArrayAdapter<FacultyClass> {
+public class FacultyClassesAdapter extends ArrayAdapter<FacultyClass> {
 
     private Context context;
     private List<FacultyClass> subjects;
     private int layoutResID;
 
-    public MyAdapter(@NonNull Context context, int layoutResID, @NonNull List<FacultyClass> subjects) {
+    public FacultyClassesAdapter(@NonNull Context context, int layoutResID, @NonNull List<FacultyClass> subjects) {
         super(context, layoutResID, subjects);
 
         this.context = context;

@@ -9,4 +9,12 @@
     <string name="preference_file_key">SharedPreference.txt</string>
     <string name="welcome_greeting">"Hi there!"</string>
     <string name="sign_in">"To sign in or register, just click below"</string>
+    <string name="password_delete_account_msg">Enter your password to delete your account</string>
+    <string name="delete_account_msg">Delete Account</string>
+    <string name="change_password_msg">Change Password</string>
+    <string name="confirm_new_password_msg">Confirm New Password</string>
+    <string name="new_password_msg">New Password</string>
+    <string name="change_password_btn">CHANGE PASSWORD</string>
+    <string name="delete_btn">DELETE</string>
+    <string name="old_password_msg">Old Password</string>
 </resources>

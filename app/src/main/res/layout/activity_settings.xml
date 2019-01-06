@@ -26,20 +26,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="8dp">
+        android:padding="16dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="8dp"
-            android:text="Change Password"
+            android:text="@string/change_password_msg"
             android:textColor="#000"
             android:textSize="20sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Old Password" />
+            android:text="@string/old_password_msg" />
 
         <EditText
             android:id="@+id/oldPassword"
@@ -50,7 +50,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="New Password" />
+            android:text="@string/new_password_msg" />
 
         <EditText
             android:id="@+id/newPassword"
@@ -61,7 +61,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Confirm New Password" />
+            android:text="@string/confirm_new_password_msg" />
 
         <EditText
             android:id="@+id/newPasswordConfirmation"
@@ -74,28 +74,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onChangePassword"
-            android:text="Change Password" />
+            android:text="@string/change_password_btn"
+            android:enabled="false"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="32dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="24dp"
             android:background="@color/colorAccent" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="8dp"
-            android:text="Delete Account"
+            android:text="@string/delete_account_msg"
             android:textColor="#000"
-            android:textSize="20sp"
-            android:layout_marginLeft="8dp"/>
+            android:textSize="20sp"/>
 
         <TextView
-            android:layout_marginLeft="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Enter your password to delete your account"/>
+            android:text="@string/password_delete_account_msg"/>
         <EditText
             android:id="@+id/password"
             android:layout_height="wrap_content"
@@ -105,7 +104,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onDeleteAccount"
-            android:text="DELETE" />
+            android:text="@string/delete_btn"
+            android:enabled="false"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -1,37 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout
+    xmlns:card_view_locations="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#dddddd"
-        android:orientation="vertical">
-
-        <TextView
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:id="@+id/locationName"
-            android:layout_width="match_parent"
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_view_locations"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ASPC"
-            android:textSize="24sp" />
+            card_view_locations:cardCornerRadius="2dp"
+            card_view_locations:cardElevation="4dp"
+            card_view_locations:cardUseCompatPadding="true">
 
-        <TextView
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:id="@+id/locationAddress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Strada Traian Lalescu 2, Timișoara 300223" />
+            <LinearLayout
+                xmlns:card_view_locations="http://schemas.android.com/apk/res-auto"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#f3edf9"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:id="@+id/locationName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ASPC"
+                        android:textSize="24sp" />
+                    <TextView
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:layout_marginBottom="2dp"
+                        android:id="@+id/locationAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/locationName"
+                        android:text="Strada Traian Lalescu 2" />
+                    <ImageView
+                        android:id="@+id/maps_icon"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_navigation"
+                        android:layout_alignParentRight="true"
+                        android:paddingRight="6dp"/>
+                </RelativeLayout>
+                <ImageView
+                    android:id="@+id/locationImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/aspc_front" />
 
-        <ImageView
-            android:id="@+id/locationImage"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/aspc_front" />
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
     </LinearLayout>
-
-</android.support.constraint.ConstraintLayout>
