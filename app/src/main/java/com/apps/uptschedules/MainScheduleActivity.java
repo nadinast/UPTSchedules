@@ -164,7 +164,7 @@ public class MainScheduleActivity extends AppCompatActivity implements Navigatio
         } else if (id == R.id.nav_poll) {
             startActivity(new Intent(this, LabsEnrollmentActivity.class));
         } else if (id == R.id.nav_locations) {
-
+            startActivity(new Intent(this, LocationsActivity.class));
         } else if (id == R.id.nav_settings){
 
         } else if(id == R.id.nav_sign_out){
@@ -178,15 +178,14 @@ public class MainScheduleActivity extends AppCompatActivity implements Navigatio
     public void clicked(View view){
     }
 
-    private void addUserDBListener(){
+    private void addUserDBListener() {
         ValueEventListener userListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 try {
                     User user = dataSnapshot.getValue(User.class);
                     Log.i("DBFirebase OK", user.toString());
-                }
-                catch(Exception e){
+                } catch (Exception e) {
                     Log.e("DBFirebase Error", e.toString());
                 }
             }
@@ -199,15 +198,14 @@ public class MainScheduleActivity extends AppCompatActivity implements Navigatio
         dbRef.child("users").child("0").addValueEventListener(userListener);
     }
 
-    private void addFacultyClassDBListener(){
+    private void addFacultyClassDBListener() {
         ValueEventListener facultyClassListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 try {
                     FacultyClass facultyClass = dataSnapshot.getValue(FacultyClass.class);
                     Log.i("DBFirebase OK", facultyClass.toString());
-                }
-                catch(Exception e){
+                } catch (Exception e) {
                     Log.e("DBFirebase Error", e.toString());
                 }
             }
@@ -220,15 +218,14 @@ public class MainScheduleActivity extends AppCompatActivity implements Navigatio
         dbRef.child("classes").child("0").addValueEventListener(facultyClassListener);
     }
 
-    private void addLabsDBListener(){
+    private void addLabsDBListener() {
         ValueEventListener labsListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 try {
                     Lab lab = dataSnapshot.getValue(Lab.class);
                     Log.i("DBFirebase OK", lab.toString());
-                }
-                catch(Exception e){
+                } catch (Exception e) {
                     Log.e("DBFirebase Error", e.toString());
                 }
             }
@@ -253,7 +250,4 @@ public class MainScheduleActivity extends AppCompatActivity implements Navigatio
                     }
                 });
     }
-
-
-
 }
