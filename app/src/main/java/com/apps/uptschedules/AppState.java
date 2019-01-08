@@ -7,6 +7,7 @@ import java.util.List;
 
 public class AppState {
     private static FirebaseUser loggedInUser = null;
+    private static boolean isNewUser = false;
     private static String[] locationsLatLong = {
             "geo:0,0?q=Universitatea+Politehnica+Timisoara",
             "geo:0,0?q=Facultatea+de+Electronică+și+Telecomunicații",
@@ -26,6 +27,15 @@ public class AppState {
     public static void setLoggedInUser(FirebaseUser loggedInUser) {
         AppState.loggedInUser = loggedInUser;
     }
+
+    public static boolean isIsNewUser() {
+        return isNewUser;
+    }
+
+    public static void setIsNewUser(boolean isNewUser) {
+        AppState.isNewUser = isNewUser;
+    }
+
 
     public static String getLatLong(int position){
         return locationsLatLong[position];

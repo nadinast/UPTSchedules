@@ -1,19 +1,23 @@
 package com.apps.uptschedules.model;
 
-public class Course {
+import java.io.Serializable;
+
+public class Course implements Serializable {
     private String abbreviation;
     private String day;
     private String hours;
     private String name;
     private String room;
+    private String profName;
     private String website;
 
     public Course(){
 
     }
 
-    public Course(String abbreviation, String day, String hours, String name, String room, String website) {
+    public Course(String abbreviation, String day, String hours, String name, String room, String profName, String website) {
         this.abbreviation = abbreviation;
+        this.profName =profName;
         this.day = day;
         this.hours = hours;
         this.name = name;
@@ -69,6 +73,14 @@ public class Course {
         this.website = website;
     }
 
+    public String getProfName() {
+        return profName;
+    }
+
+    public void setProfName(String profName) {
+        this.profName = profName;
+    }
+
     @Override
     public String toString() {
         return "Course{" +
@@ -77,6 +89,7 @@ public class Course {
                 ", hours='" + hours + '\'' +
                 ", name='" + name + '\'' +
                 ", room='" + room + '\'' +
+                ", profName='" + profName + '\'' +
                 ", website='" + website + '\'' +
                 '}';
     }

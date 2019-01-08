@@ -1,9 +1,11 @@
 package com.apps.uptschedules.model;
 
 
+import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
-public class Lab {
+public class Lab implements Serializable {
     private List<Option> options;
 
     public Lab(){
@@ -28,4 +30,5 @@ public class Lab {
                 "options=" + options +
                 '}';
     }
+
 }

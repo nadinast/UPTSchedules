@@ -14,24 +14,16 @@
         android:layout_height="wrap_content"
         android:text="Course name"
         android:paddingBottom="4dp"/>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorPrimaryDark"/>
     <RadioGroup
+        android:id="@+id/options_radio_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingBottom="4dp">
-        <RadioButton
-            android:id="@+id/radio_pirates"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Day1, Room1, Hour1"
-            android:onClick="onRadioButtonClicked"/>
-        <RadioButton
-            android:id="@+id/radio_ninjas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Day2, Room2, Hour2"
-            android:onClick="onRadioButtonClicked"/>
     </RadioGroup>
     <Button
         android:layout_width="wrap_content"

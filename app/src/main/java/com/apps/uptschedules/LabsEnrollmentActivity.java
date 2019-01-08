@@ -6,10 +6,15 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
+import com.apps.uptschedules.model.Classes;
+import com.apps.uptschedules.model.Lab;
 import com.apps.uptschedules.model.Option;
+import com.apps.uptschedules.model.UILabOptions;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +22,7 @@ public class LabsEnrollmentActivity extends AppCompatActivity {
 
     RecyclerView recyclerViewLLabOptions;
     List<Option> labOptions= new ArrayList<>();
+    ArrayList<Classes> classes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,34 +39,11 @@ public class LabsEnrollmentActivity extends AppCompatActivity {
             }
         });
 
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // back button pressed
-                onBackPressed();
-            }
-        });
-
-        labOptions.add(new Option("Monday", "12-14", "B512"));
-        labOptions.add(new Option("Monday", "12-14", "B512"));
-        labOptions.add(new Option("Monday", "12-14", "B512"));
-        labOptions.add(new Option("Monday", "12-14", "B512"));
-        labOptions.add(new Option("Monday", "12-14", "B512"));
-        labOptions.add(new Option("Monday", "12-14", "B512"));
-        labOptions.add(new Option("Monday", "12-14", "B512"));
-        labOptions.add(new Option("Monday", "12-14", "B512"));
-        labOptions.add(new Option("Monday", "12-14", "B512"));
-        labOptions.add(new Option("Monday", "12-14", "B512"));
-        labOptions.add(new Option("Monday", "12-14", "B512"));
-        labOptions.add(new Option("Monday", "12-14", "B512"));
-        labOptions.add(new Option("Monday", "12-14", "B512"));
-        labOptions.add(new Option("Monday", "12-14", "B512"));
-        labOptions.add(new Option("Monday", "12-14", "B512"));
-        labOptions.add(new Option("Monday", "12-14", "B512"));
-        labOptions.add(new Option("Monday", "12-14", "B512"));
-        labOptions.add(new Option("Monday", "12-14", "B512"));
-        labOptions.add(new Option("Monday", "12-14", "B512"));
-        labOptions.add(new Option("Monday", "12-14", "B512"));
+        classes = getIntent().getParcelableArrayListExtra("classes");
+        final ArrayList<UILabOptions> labOptions = new ArrayList<>();
+        for(Classes oneClass : classes) {
+            labOptions.add(new UILabOptions(oneClass.getLabs().getOptions(), oneClass.getCourse().getAbbreviation()));
+        }
 
         recyclerViewLLabOptions = (RecyclerView) findViewById(R.id.listLabOptions);
 
@@ -68,7 +51,7 @@ public class LabsEnrollmentActivity extends AppCompatActivity {
         recyclerViewLLabOptions.setLayoutManager(mLayoutManager);
         recyclerViewLLabOptions.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
-        final LabOptionsAdapter adapter = new LabOptionsAdapter(labOptions);
+        final LabOptionsAdapter adapter = new LabOptionsAdapter(labOptions, getApplicationContext());
         recyclerViewLLabOptions.setAdapter(adapter);
     }
 }

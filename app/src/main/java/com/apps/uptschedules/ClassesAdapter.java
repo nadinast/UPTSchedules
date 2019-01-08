@@ -7,21 +7,22 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ActionMenuView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.apps.uptschedules.model.FacultyClass;
+import com.apps.uptschedules.model.Classes;
+import com.apps.uptschedules.model.Course;
+import com.apps.uptschedules.model.Lab;
 
 import java.util.List;
 
-public class FacultyClassesAdapter extends ArrayAdapter<FacultyClass> {
+public class ClassesAdapter extends ArrayAdapter<Classes> {
 
     private Context context;
-    private List<FacultyClass> subjects;
+    private List<Classes> subjects;
     private int layoutResID;
 
-    public FacultyClassesAdapter(@NonNull Context context, int layoutResID, @NonNull List<FacultyClass> subjects) {
+    public ClassesAdapter(@NonNull Context context, int layoutResID, @NonNull List<Classes> subjects) {
         super(context, layoutResID, subjects);
 
         this.context = context;
@@ -50,16 +51,17 @@ public class FacultyClassesAdapter extends ArrayAdapter<FacultyClass> {
             itemHolder = (ItemHolder) view.getTag();
         }
 
-        final FacultyClass sItem = subjects.get(position);
+        final Classes sItem = subjects.get(position);
 
-        itemHolder.tTimeInterval.setText(sItem.hours);
-        itemHolder.tSubjectName.setText(sItem.abbreviation);
-//        itemHolder.tSubjectSession.setText(sItem.subjectSession);
-        itemHolder.tSessionRoom.setText(sItem.room);
-//        itemHolder.tSessionProf.setText(sItem.sessionProf);
+        Course course = sItem.getCourse();
+
+        itemHolder.tTimeInterval.setText(course.getHours());
+        itemHolder.tSubjectName.setText(course.getAbbreviation());
+        itemHolder.tSubjectSession.setText("Course");
+        itemHolder.tSessionRoom.setText(course.getRoom());
+        itemHolder.tSessionProf.setText("Prof. " + course.getProfName());
 
         return view;
-
     }
 
     private static class ItemHolder {

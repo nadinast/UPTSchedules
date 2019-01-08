@@ -3,6 +3,7 @@ package com.apps.uptschedules;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -17,17 +18,17 @@ import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.apps.uptschedules.model.FacultyClass;
-import com.apps.uptschedules.model.Option;
+import com.apps.uptschedules.model.Classes;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.apps.uptschedules.model.Lab;
-import com.apps.uptschedules.model.User;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -40,7 +41,9 @@ public class MainScheduleActivity extends AppCompatActivity implements Navigatio
     FirebaseDatabase firebase;
 
     ListView listSubjects;
-    List<FacultyClass> classes = new ArrayList<>();
+    ArrayList<Classes> classes = new ArrayList<>();
+    List<Long> courseIds =  new ArrayList<>();
+    List<Classes> allClasses = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,51 +52,8 @@ public class MainScheduleActivity extends AppCompatActivity implements Navigatio
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        List<Option> op1 = new ArrayList<>();
-        op1.add(new Option("opday", "ophours", "opRoom"));
-        FacultyClass fc1 = new FacultyClass("CP", "day", "hours", "name", "room", "website", op1);
-
-        classes.add(fc1);
-
-        List<Option> op2 = new ArrayList<>();
-        op1.add(new Option("opday", "ophours", "opRoom"));
-        FacultyClass fc2 = new FacultyClass("CP", "day", "hours", "name", "room", "website", op2);
-
-        classes.add(fc2);
-
-        List<Option> op3 = new ArrayList<>();
-        op1.add(new Option("opday", "ophours", "opRoom"));
-        FacultyClass fc3 = new FacultyClass("CP", "day", "hours", "name", "room", "website", op3);
-
-        classes.add(fc3);
-
-        List<Option> op4 = new ArrayList<>();
-        op1.add(new Option("opday", "ophours", "opRoom"));
-        FacultyClass fc4 = new FacultyClass("CP", "day", "hours", "name", "room", "website", op4);
-
-        classes.add(fc4);
-
-        List<Option> op5 = new ArrayList<>();
-        op1.add(new Option("opday", "ophours", "opRoom"));
-        FacultyClass fc5 = new FacultyClass("CP", "day", "hours", "name", "room", "website", op5);
-
-        classes.add(fc5);
-
-        List<Option> op6 = new ArrayList<>();
-        op1.add(new Option("opday", "ophours", "opRoom"));
-        FacultyClass fc6 = new FacultyClass("CP", "day", "hours", "name", "room", "website", op6);
-
-        classes.add(fc6);
-
-        List<Option> op7 = new ArrayList<>();
-        op1.add(new Option("opday", "ophours", "opRoom"));
-        FacultyClass fc7 = new FacultyClass("CP", "day", "hours", "name", "room", "website", op7);
-
-        classes.add(fc7);
-
-
         listSubjects = (ListView) findViewById(R.id.listSubjects);
-        final FacultyClassesAdapter adapter = new FacultyClassesAdapter(this, R.layout.fragment_item, classes);
+        final ClassesAdapter adapter = new ClassesAdapter(this, R.layout.fragment_item, classes);
         listSubjects.setAdapter(adapter);
 
 
@@ -125,9 +85,27 @@ public class MainScheduleActivity extends AppCompatActivity implements Navigatio
         firebase = FirebaseDatabase.getInstance();
         dbRef = firebase.getReference();
 
-        addUserDBListener();
-        addFacultyClassDBListener();
-        addLabsDBListener();
+        if(AppState.isIsNewUser()){
+            AppState.setIsNewUser(false);
+            setCoursesForLoggedInUser();
+        }
+        addUserCourseDBListener(AppState.getLoggedInUser().getUid(), adapter);
+        addFacultyClassDBListener(AppState.getLoggedInUser().getUid(), adapter);
+        //addLabsDBListener();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.getMenu().getItem(0).setChecked(true);
+    }
+
+    private void setCoursesForLoggedInUser() {
+        List<Long> courses = new ArrayList<>();
+        courses.add((long)0);
+        courses.add((long)0);
+        dbRef.child("userCourses").child(AppState.getLoggedInUser().getUid()).setValue(courses);
     }
 
     @Override
@@ -149,7 +127,9 @@ public class MainScheduleActivity extends AppCompatActivity implements Navigatio
         if (id == R.id.nav_my_schedule) {
 
         } else if (id == R.id.nav_poll) {
-            startActivity(new Intent(this, LabsEnrollmentActivity.class));
+            Intent pollIntent = new Intent(this, LabsEnrollmentActivity.class);
+            pollIntent.putParcelableArrayListExtra("classes", classes);
+            startActivity(pollIntent);
         } else if (id == R.id.nav_locations) {
             startActivity(new Intent(this, LocationsActivity.class));
         } else if (id == R.id.nav_settings){
@@ -162,47 +142,96 @@ public class MainScheduleActivity extends AppCompatActivity implements Navigatio
         return true;
     }
 
-    public void clicked(View view){
-    }
-
-    private void addUserDBListener() {
-        ValueEventListener userListener = new ValueEventListener() {
+    private void addUserCourseDBListener(String uid, final ClassesAdapter adapter) {
+        dbRef.child("userCourses").child(uid).addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 try {
-                    User user = dataSnapshot.getValue(User.class);
-                    Log.i("DBFirebase OK", user.toString());
+                    Long courseId = dataSnapshot.getValue(Long.class);
+                    courseIds.add(courseId);
+                    if(allClasses.size() > courseId){
+                        classes.add(allClasses.get(courseId.intValue()));
+                        adapter.notifyDataSetChanged();
+                    }
+                    //Log.i("DBFirebase OK", courseId.toString());
                 } catch (Exception e) {
                     Log.e("DBFirebase Error", e.toString());
                 }
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e("DBFirebase OnCancelled", databaseError.toException().toString());
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
             }
-        };
-        dbRef.child("users").child("0").addValueEventListener(userListener);
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                Long courseId = dataSnapshot.getValue(Long.class);
+                for(Long course : courseIds)
+                    if(course.equals(courseId)) {
+                        courseIds.remove(course);
+                        classes.remove(courseId.intValue());
+                        adapter.notifyDataSetChanged();
+                    }
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
-    private void addFacultyClassDBListener() {
-        ValueEventListener facultyClassListener = new ValueEventListener() {
+    private void addFacultyClassDBListener(final String uid, final ClassesAdapter adapater) {
+        dbRef.child("classes").addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 try {
-                    FacultyClass facultyClass = dataSnapshot.getValue(FacultyClass.class);
-                    Log.i("DBFirebase OK", facultyClass.toString());
+                    Classes oneClass = dataSnapshot.getValue(Classes.class);
+                    allClasses.add(oneClass);
+                    long idOfClass = allClasses.size() - 1;
+                    if(courseIds.contains(idOfClass)) {
+                        classes.add(oneClass);
+                        adapater.notifyDataSetChanged();
+                    }
+                   //Log.i("DBFirebase OK", classes.toString());
+
                 } catch (Exception e) {
                     Log.e("DBFirebase Error", e.toString());
                 }
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e("DBFirebase OnCancelled", databaseError.toException().toString());
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
             }
-        };
-        dbRef.child("classes").child("0").addValueEventListener(facultyClassListener);
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                Classes oneClass = dataSnapshot.getValue(Classes.class);
+                int courseIdOfRemovedClass = allClasses.indexOf(oneClass);
+                allClasses.remove(oneClass);
+                classes.remove(courseIdOfRemovedClass);
+                courseIds.remove(courseIdOfRemovedClass);
+                dbRef.child("userCourses").child(uid).child(courseIdOfRemovedClass + "").removeValue();
+                adapater.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void addLabsDBListener() {

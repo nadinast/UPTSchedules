@@ -37,6 +37,8 @@ public class SignInActivity extends AppCompatActivity {
 
             if (resultCode == RESULT_OK) {
                 // Successfully signed in
+                if(response.isNewUser())
+                    AppState.setIsNewUser(true);
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 AppState.setLoggedInUser(user);
                 startActivity(new Intent(this, MainScheduleActivity.class));

@@ -2,7 +2,7 @@ package com.apps.uptschedules.model;
 
 import java.util.ArrayList;
 
-public class User {
+public class UserCourse {
     private String name;
     private String email;
     private String faculty;
@@ -11,11 +11,11 @@ public class User {
     private ArrayList<Long> courses = new ArrayList<>();
     private String password;
 
-    public User() {
+    public UserCourse() {
 
     }
 
-    public User(ArrayList<Long> courses, String email, String faculty, String name, String password, String section, Long year) {
+    public UserCourse(ArrayList<Long> courses, String email, String faculty, String name, String password, String section, Long year) {
         this.name = name;
         this.email = email;
         this.faculty = faculty;
@@ -83,7 +83,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "UserCourse{" +
                 "name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", faculty='" + faculty + '\'' +

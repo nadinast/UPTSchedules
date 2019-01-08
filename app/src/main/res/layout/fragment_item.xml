@@ -22,7 +22,8 @@
             android:gravity="center_vertical"
             android:padding="4dp"
             android:text="12 - 14"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:textColor="@android:color/black"/>
 
         <View
             android:layout_width="1dp"
@@ -48,7 +49,7 @@
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:text="CP"
-                android:textSize="20sp" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
             <TextView
                 android:id="@+id/subject_session"
@@ -58,8 +59,7 @@
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:text="lab"
-
-                android:textSize="16sp" />
+                android:textSize="12sp" />
 
             <View
                 android:layout_width="match_parent"
@@ -75,7 +75,7 @@
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:text="Prof. A. Iovanovici"
-                android:textSize="16dp" />
+                android:textSize="16sp" />
 
         </LinearLayout>
 
@@ -93,7 +93,8 @@
             android:gravity="center_vertical"
             android:padding="8dp"
             android:text="B512"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:textColor="@android:color/black"/>
 
     </LinearLayout>
 
