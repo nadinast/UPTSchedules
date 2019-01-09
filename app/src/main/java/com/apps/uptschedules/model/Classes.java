@@ -3,19 +3,25 @@ package com.apps.uptschedules.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.firebase.database.Exclude;
+
 import java.util.Objects;
 
 public class Classes implements Parcelable {
     public Lab labs;
     public Course course;
 
+    @Exclude
+    int id;
+
     public Classes() {
 
     }
 
-    public Classes(Lab labs, Course course) {
+    public Classes(Lab labs, Course course, int id) {
         this.labs = labs;
         this.course = course;
+        this.id = id;
     }
 
     public Lab getLabs() {
@@ -34,11 +40,21 @@ public class Classes implements Parcelable {
         this.course = course;
     }
 
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "Classes{" +
                 "labs=" + labs +
                 ", course=" + course +
+                ", id=" + id +
                 '}';
     }
 
@@ -65,6 +81,7 @@ public class Classes implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeSerializable(labs);
         parcel.writeSerializable(course);
+        parcel.writeInt(id);
     }
 
     public static final Parcelable.Creator<Classes> CREATOR = new Parcelable.Creator<Classes>() {
@@ -80,5 +97,6 @@ public class Classes implements Parcelable {
     private Classes(Parcel in) {
         labs = (Lab)in.readSerializable();
         course = (Course)in.readSerializable();
+        id = in.readInt();
     }
 }

@@ -21,7 +21,6 @@ import java.util.List;
 public class LabsEnrollmentActivity extends AppCompatActivity {
 
     RecyclerView recyclerViewLLabOptions;
-    List<Option> labOptions= new ArrayList<>();
     ArrayList<Classes> classes;
 
     @Override
@@ -42,7 +41,7 @@ public class LabsEnrollmentActivity extends AppCompatActivity {
         classes = getIntent().getParcelableArrayListExtra("classes");
         final ArrayList<UILabOptions> labOptions = new ArrayList<>();
         for(Classes oneClass : classes) {
-            labOptions.add(new UILabOptions(oneClass.getLabs().getOptions(), oneClass.getCourse().getAbbreviation()));
+            labOptions.add(new UILabOptions(oneClass.getLabs().getOptions(), oneClass.getCourse().getAbbreviation(), oneClass.getId()));
         }
 
         recyclerViewLLabOptions = (RecyclerView) findViewById(R.id.listLabOptions);
@@ -51,7 +50,7 @@ public class LabsEnrollmentActivity extends AppCompatActivity {
         recyclerViewLLabOptions.setLayoutManager(mLayoutManager);
         recyclerViewLLabOptions.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
-        final LabOptionsAdapter adapter = new LabOptionsAdapter(labOptions, getApplicationContext());
+        final LabOptionsAdapter adapter = new LabOptionsAdapter(labOptions, getApplicationContext(), findViewById(R.id.coordinator_layout_labs_enrollment));
         recyclerViewLLabOptions.setAdapter(adapter);
     }
 }

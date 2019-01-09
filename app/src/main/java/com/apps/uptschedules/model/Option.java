@@ -6,15 +6,26 @@ public class Option implements Serializable {
     private String day;
     private String hours;
     private String room;
+    private Long capacity;
+
 
     public Option(){
 
     }
 
-    public Option(String day, String hours, String room) {
+    public Option(String day, String hours, String room, Long capacity) {
         this.day = day;
         this.hours = hours;
         this.room = room;
+        this.capacity = capacity;
+    }
+
+    public Long getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(Long capacity) {
+        this.capacity = capacity;
     }
 
     public String getDay() {

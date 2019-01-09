@@ -104,7 +104,7 @@ public class MainScheduleActivity extends AppCompatActivity implements Navigatio
     private void setCoursesForLoggedInUser() {
         List<Long> courses = new ArrayList<>();
         courses.add((long)0);
-        courses.add((long)0);
+        courses.add((long)1);
         dbRef.child("userCourses").child(AppState.getLoggedInUser().getUid()).setValue(courses);
     }
 
@@ -195,11 +195,12 @@ public class MainScheduleActivity extends AppCompatActivity implements Navigatio
                     Classes oneClass = dataSnapshot.getValue(Classes.class);
                     allClasses.add(oneClass);
                     long idOfClass = allClasses.size() - 1;
+                    oneClass.setId((int)idOfClass);
                     if(courseIds.contains(idOfClass)) {
                         classes.add(oneClass);
                         adapater.notifyDataSetChanged();
                     }
-                   //Log.i("DBFirebase OK", classes.toString());
+                   //Log.i("DBFirebase OK", oneClass.getId()+ "");
 
                 } catch (Exception e) {
                     Log.e("DBFirebase Error", e.toString());
