@@ -58,6 +58,7 @@ public class Option implements Serializable {
                 "day='" + day + '\'' +
                 ", hours='" + hours + '\'' +
                 ", room='" + room + '\'' +
+                ", capacity='" + capacity + '\'' +
                 '}';
     }
 }

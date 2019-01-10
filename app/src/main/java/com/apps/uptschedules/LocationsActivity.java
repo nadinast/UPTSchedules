@@ -28,7 +28,7 @@ public class LocationsActivity extends AppCompatActivity {
         });
 
         List<Locations> locations= new ArrayList<>();
-        locations.add(new Locations("Rectorship UPT","Piata Victoriei, nr. 2",R.drawable.rectorat));
+        locations.add(new Locations("Rectorat UPT","Piata Victoriei, nr. 2",R.drawable.rectorat));
         locations.add(new Locations("ASPC","Str. Petru Ramneantu, nr. 2a",R.drawable.aspc_front));
         locations.add(new Locations("Electro","Bvd. Vasile Parvan, nr. 2",R.drawable.electro));
         locations.add(new Locations("Chimie Centru","Str. Carol Telbisz, nr. 2",R.drawable.chimie_centru));

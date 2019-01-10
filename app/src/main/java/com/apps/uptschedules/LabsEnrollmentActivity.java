@@ -39,6 +39,7 @@ public class LabsEnrollmentActivity extends AppCompatActivity {
         });
 
         classes = getIntent().getParcelableArrayListExtra("classes");
+        Log.i("ENROLLMENTOK", classes.toString());
         final ArrayList<UILabOptions> labOptions = new ArrayList<>();
         for(Classes oneClass : classes) {
             labOptions.add(new UILabOptions(oneClass.getLabs().getOptions(), oneClass.getCourse().getAbbreviation(), oneClass.getId()));
